@@ -1,0 +1,25 @@
+# Source
+src/
+
+# Tests
+tests/
+
+# Documentation
+docs/
+
+# Development tools
+node_modules/
+
+# Configuration files
+.env
+.env.*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
