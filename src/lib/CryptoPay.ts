@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import type {
     CryptoPayClientParams,
     ApiResponse,
@@ -21,17 +20,25 @@ import type {
     TransferParams,
 } from "../dto/CryptoPayDto";
 import { Polling } from "./Polling";
+import axios, { AxiosInstance } from "axios";
 
 export default class CryptoPayClient {
     private mainURL: string;
     private testURL: string;
     private URL: string;
     public polling: Polling;
+    private instance: AxiosInstance;
 
     constructor(private client: CryptoPayClientParams) {
         this.mainURL = "https://pay.crypt.bot/api/";
         this.testURL = "https://testnet-pay.crypt.bot/api/";
         this.URL = this.client.net === "testnet" ? this.testURL : this.mainURL;
+        this.instance = axios.create({
+            baseURL: this.URL,
+            headers: {
+                "Crypto-Pay-API-Token": this.client.token,
+            },
+        });
 
         this.polling = new Polling({
             cp: this,
@@ -63,11 +70,13 @@ export default class CryptoPayClient {
                 options.body = JSON.stringify(params);
             }
 
-            const response = await fetch(
-                `${this.URL}${url}${queryString}`,
-                options
-            );
-            const data = (await response.json()) as ApiResponse<T>;
+            const response = await this.instance.request<T>({
+                url: `${this.URL}${url}${queryString}`,
+                method,
+                headers: options.headers,
+                data: options.body,
+            });
+            const data = response.data as ApiResponse<T>;
             return data;
         } catch (e) {
             throw new Error(`Failed to fetch API: ${e}`);

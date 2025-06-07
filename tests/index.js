@@ -8,7 +8,7 @@ const cryptoPay = new CryptoPayClient({
     token,
     net: "testnet",
     pollingEnabled: true,
-    pollingInterval: 15000,
+    pollingInterval: 5000,
 });
 
 // Webhook
@@ -34,7 +34,7 @@ console.log(invoice);
 
 cryptoPay.polling.add({
     endTimestamp: Date.now() + 60000 * 10,
-    invoice: invoice.result,
+    result: invoice.result,
     userId: "123",
 });
 
