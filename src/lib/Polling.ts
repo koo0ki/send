@@ -1,9 +1,10 @@
-import type { Invoices, PollingParams } from "../dto/PollingDto";
-import type { Invoice } from "../dto/CryptoPayDto";
-import { EventEmitter } from "events";
+import type { Invoices, PollingParams } from '../dto/PollingDto';
+import type { Invoice } from '../dto/CryptoPayDto';
+import { EventEmitter } from 'events';
 
 export class Polling extends EventEmitter {
     private invoices: Invoices[];
+    private interval?: number;
 
     constructor(private params: PollingParams) {
         super();
@@ -11,8 +12,9 @@ export class Polling extends EventEmitter {
         this.invoices = [];
 
         if (this.params.pollingEnabled) {
-            if (this.params.pollingInterval < 5000)
-                throw new Error("Polling interval must be at least 5000ms");
+            this.interval = this.params.pollingInterval || 5000;
+
+            if (this.interval < 5000) throw new Error('Polling interval must be at least 5000ms');
 
             this.sweeper();
         }
@@ -24,9 +26,7 @@ export class Polling extends EventEmitter {
 
     private async sweeper() {
         setInterval(async () => {
-            this.invoices = this.invoices.filter(
-                (i) => i.endTimestamp > Date.now()
-            );
+            this.invoices = this.invoices.filter(i => i.endTimestamp > Date.now());
 
             await this.checkInvoices();
         }, this.params.pollingInterval);
@@ -39,18 +39,17 @@ export class Polling extends EventEmitter {
 
         for (const invoice of this.invoices) {
             if (response.ok) {
-                const inv = (response.result!.items as Invoice[]).find(
-                    (i) => i.invoice_id === invoice.result.invoice_id
-                );
+                const inv = (response.result!.items as Invoice[]).find(i => i.invoice_id === invoice.result.invoice_id);
 
-                if (inv?.status == "paid") {
-                    this.emit("invoicePaid", invoice);
+                if (inv?.status == 'paid') {
+                    this.emit('invoicePaid', invoice);
+                    this.invoices = this.invoices.filter(i => i.result.invoice_id !== invoice.result.invoice_id);
                 }
             }
         }
     }
 
-    on(event: "invoicePaid", listener: (invoice: Invoices) => void): this;
+    on(event: 'invoicePaid', listener: (invoice: Invoices) => void): this;
     on(event: string, listener: (...args: any[]) => void): this;
     on(event: string, listener: (...args: any[]) => void): this {
         return super.on(event, listener);

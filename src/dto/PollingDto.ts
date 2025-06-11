@@ -1,10 +1,10 @@
-import type { Invoice } from "./CryptoPayDto";
-import type CryptoPayManager from "../lib/CryptoPay";
+import type { Invoice } from './CryptoPayDto';
+import type CryptoPayManager from '../lib/CryptoPay';
 
 export interface PollingParams {
     cp: CryptoPayManager;
-    pollingEnabled: boolean;
-    pollingInterval: number;
+    pollingEnabled?: boolean;
+    pollingInterval?: number;
 }
 
 export interface Invoices {
