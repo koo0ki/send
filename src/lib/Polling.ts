@@ -29,7 +29,7 @@ export class Polling extends EventEmitter {
             this.invoices = this.invoices.filter(i => i.endTimestamp > Date.now());
 
             await this.checkInvoices();
-        }, this.params.pollingInterval);
+        }, this.interval);
     }
 
     private async checkInvoices() {
