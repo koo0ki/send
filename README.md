@@ -11,7 +11,7 @@ npm install @koo0ki/send
 ## Быстрый старт
 
 ```javascript
-import { CryptoPayClient, Webhook, Networks } from "@koo0ki/send";
+import { CryptoPayClient, Networks } from "@koo0ki/send";
 
 // Инициализация клиента
 const cryptoPay = new CryptoPayClient({
@@ -26,14 +26,6 @@ const invoice = await cryptoPay.createInvoice({
     amount: 1,
     asset: "USDT",
     description: "Test invoice",
-});
-
-// Настройка вебхуков
-const webhook = new Webhook("YOUR_API_TOKEN", 8080);
-webhook.start();
-
-webhook.on("update", (update) => {
-    console.log(update);
 });
 ```
 
