@@ -2,43 +2,33 @@
 
 Класс для работы с вебхуками CryptoPay API.
 
-## Конструктор
-
-```typescript
-new Webhook(token: string, port: number = 8080)
-```
-
-- `token`: Токен вашего бота
-- `port`: Порт для запуска сервера (по умолчанию 8080)
-
-## Методы
-
-### start()
-Запускает веб-сервер для обработки обновлений.
-
-```typescript
-await webhook.start()
-```
-
-### on(event: "update", listener: (update: WebhookUpdate) => void)
-Регистрирует обработчик для событий обновления.
-
-```typescript
-webhook.on("update", (update) => {
-    console.log(update);
-});
-```
-
 ## Пример использования
 
 ```typescript
-const webhook = new Webhook("YOUR_BOT_TOKEN", 8080);
+import fastify from 'fastify';
+import { CryptoPayClient, Networks } from '@koo0ki/send';
 
-webhook.on("update", (update) => {
-    console.log(update);
+const cryptoPay = new CryptoPayClient({
+    token: Bun.env.CRYPTO_PAY_TOKEN!,
+    net: Networks.TESTNET
 });
 
-await webhook.start();
+const app = fastify();
+
+app.post('/', async (req, res) => {
+    return cryptoPay.webhook.handleWebhook({
+        body: req.body,
+        headers: req.headers
+    });
+});
+
+cryptoPay.webhook.on('update', async invoice => {
+    console.log('Invoice updated:', invoice);
+});
+
+app.listen({ port: 3000 }, () => {
+    console.log('Server is running on port 3000');
+});
 ```
 
 ## События

@@ -1,6 +1,6 @@
 {
     "name": "@koo0ki/send",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "Send SDK for handling crypto payments and polling.",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -31,8 +31,7 @@
         "typescript": "^5"
     },
     "dependencies": {
-        "axios": "^1.9.0",
-        "fastify": "^5.3.3"
+        "axios": "^1.9.0"
     },
     "files": [
         "dist/*"

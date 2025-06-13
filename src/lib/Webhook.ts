@@ -1,45 +1,28 @@
 import { createHash, createHmac } from 'crypto';
 import { EventEmitter } from 'events';
-import fastify, { FastifyInstance } from 'fastify';
 import { IncomingHttpHeaders } from 'http';
 import { WebhookUpdate } from '../dto/WebhookDto';
 
 export default class Webhook extends EventEmitter {
-    private server: FastifyInstance;
     private token: string;
-    private port: number;
-    constructor(token: string, port: number = 8080) {
+    constructor(token: string) {
         super();
         this.token = token;
-        this.port = port;
-        this.server = fastify({
-            logger: false
-        });
     }
 
-    public async start() {
-        this.server.post('/', async req => {
-            try {
-                if (
-                    !this.checkSignature(this.token, {
-                        body: req.body,
-                        headers: req.headers
-                    })
-                ) {
-                    return;
-                }
+    public handleWebhook({ body, headers }: { body: any; headers: IncomingHttpHeaders }) {
+        if (
+            !this.checkSignature(this.token, {
+                body: body,
+                headers: headers
+            })
+        ) {
+            return { ok: false };
+        }
 
-                this.emit('update', req.body);
+        this.emit('update', body);
 
-                return { ok: true };
-            } catch (e) {
-                throw e;
-            }
-        });
-
-        await this.server.listen({ port: this.port }).catch(e => {
-            throw e;
-        });
+        return { ok: true };
     }
 
     private checkSignature(token: string, { body, headers }: { body: any; headers: IncomingHttpHeaders }) {

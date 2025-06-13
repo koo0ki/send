@@ -21,13 +21,16 @@ import type {
 } from '../dto/CryptoPayDto';
 import { Polling } from './Polling';
 import axios, { AxiosInstance } from 'axios';
+import Webhook from './Webhook';
 
 export default class CryptoPayClient {
     private mainURL: string;
     private testURL: string;
     private URL: string;
-    public polling: Polling;
     private instance: AxiosInstance;
+
+    public polling: Polling;
+    public webhook: Webhook;
 
     constructor(private client: CryptoPayClientParams) {
         this.mainURL = 'https://pay.crypt.bot/api/';
@@ -45,6 +48,8 @@ export default class CryptoPayClient {
             pollingEnabled: this.client.pollingEnabled,
             pollingInterval: this.client.pollingInterval
         });
+
+        this.webhook = new Webhook(this.client.token);
     }
 
     private async fetchAPI<T>(
