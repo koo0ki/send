@@ -11,12 +11,12 @@ npm install @koo0ki/send
 ## Быстрый старт
 
 ```javascript
-import { CryptoPayClient, Webhook } from "@koo0ki/send";
+import { CryptoPayClient, Webhook, Networks } from "@koo0ki/send";
 
 // Инициализация клиента
 const cryptoPay = new CryptoPayClient({
     token: "YOUR_API_TOKEN",
-    net: "testnet", // или "mainnet" для основной сети
+    net: Networks.TESTNET, // или Networks.MAINNET для основной сети
     pollingEnabled: true,
     pollingInterval: 15000,
 });

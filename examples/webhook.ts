@@ -1,10 +1,10 @@
 import { Bot, InlineKeyboard, Keyboard } from 'grammy';
-import { CryptoPayClient, Webhook } from '../src';
+import { CryptoPayClient, Networks, Webhook } from '../src';
 
 const bot = new Bot(Bun.env.BOT_TOKEN!);
 const cryptoPay = new CryptoPayClient({
     token: Bun.env.CRYPTO_PAY_TOKEN!,
-    net: 'testnet'
+    net: Networks.TESTNET
 });
 
 const webhook = new Webhook(Bun.env.CRYPTO_PAY_TOKEN!);

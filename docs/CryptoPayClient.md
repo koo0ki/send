@@ -7,7 +7,7 @@
 ```typescript
 new CryptoPayClient({
     token: string;           // Ваш токен API
-    net: "main" | "testnet"; // Сеть для работы
+    net: Networks.MAINNET || Networks.TESTNET; // Сеть для работы
     pollingEnabled: boolean; // Включить опросное оповещение
     pollingInterval: number; // Интервал опроса в миллисекундах
 })
@@ -25,12 +25,12 @@ interface CreateInvoiceParams {
     asset?: CryptoCurrencyCode;         // Криптовалюта
     fiat?: FiatCurrencyCode;            // Фиатная валюта
     accepted_assets?: string;           // Принимаемые валюты
-    amount: string;                     // Сумма
+    amount: string | number;            // Сумма
     description?: string;               // Описание
     hidden_message?: string;            // Скрытое сообщение
     paid_btn_name?: "viewItem" | "openChannel" | "openBot" | "callback"; // Действие после оплаты
     paid_btn_url?: string;              // URL для действия
-    payload?: string;                   // Дополнительные данные
+    payload?: string;          // Дополнительные данные
     allow_comments?: boolean;           // Разрешить комментарии
     allow_anonymous?: boolean;          // Разрешить анонимные платежи
     expires_in?: number;                // Время жизни в секундах
@@ -45,8 +45,8 @@ interface GetInvoicesParams {
     fiat?: FiatCurrencyCode;            // Фильтр по фиату
     invoice_ids?: string;               // ID инвойсов
     status?: "active" | "paid";        // Статус
-    offset?: number;                    // Смещение
-    count?: number;                     // Количество
+    offset?: number;           // Смещение
+    count?: number;            // Количество
 }
 ```
 
@@ -60,7 +60,7 @@ interface GetInvoicesParams {
 ```typescript
 interface CreateCheckParams {
     asset: CryptoCurrencyCode;          // Валюта
-    amount: string;                     // Сумма
+    amount: string | number;            // Сумма
     pin_to_user_id?: number;            // ID пользователя
     pin_to_username?: string;           // Username пользователя
 }
@@ -73,8 +73,8 @@ interface GetChecksParams {
     asset?: CryptoCurrencyCode;         // Фильтр по валюте
     check_ids?: string;                 // ID чеков
     status?: "active" | "activated";   // Статус
-    offset?: number;                    // Смещение
-    count?: number;                     // Количество
+    offset?: number;           // Смещение
+    count?: number;            // Количество
 }
 ```
 
@@ -87,11 +87,11 @@ interface GetChecksParams {
 Переводит средства между пользователями.
 ```typescript
 interface TransferParams {
-    user_id: number;                    // ID получателя
+    user_id: number;           // ID получателя
     asset: CryptoCurrencyCode;          // Валюта
-    amount: string;                     // Сумма
-    spend_id: string;                   // Уникальный ID транзакции
-    comment?: string;                   // Комментарий
+    amount: string | number;            // Сумма
+    spend_id: string;          // Уникальный ID транзакции
+    comment?: string;          // Комментарий
     disable_send_notification?: boolean; // Отключить уведомление
 }
 ```
@@ -102,9 +102,9 @@ interface TransferParams {
 interface GetTransfersParams {
     asset?: CryptoCurrencyCode;         // Фильтр по валюте
     transfer_ids?: string;              // ID трансферов
-    spend_id?: string;                  // ID транзакции
-    offset?: number;                    // Смещение
-    count?: number;                     // Количество
+    spend_id?: string;         // ID транзакции
+    offset?: number;           // Смещение
+    count?: number;            // Количество
 }
 ```
 
@@ -126,8 +126,8 @@ interface GetTransfersParams {
 Получает статистику приложения.
 ```typescript
 interface GetStatsParams {
-    start_at?: string;                  // Начальная дата
-    end_at?: string;                    // Конечная дата
+    start_at?: string;         // Начальная дата
+    end_at?: string;           // Конечная дата
 }
 ```
 

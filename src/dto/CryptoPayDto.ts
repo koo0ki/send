@@ -1,6 +1,8 @@
+import { Network } from '../enums/Networks';
+
 export interface CryptoPayClientParams {
     token: string;
-    net: 'main' | 'testnet';
+    net: Network;
     pollingEnabled?: boolean;
     pollingInterval?: number;
 }
@@ -72,7 +74,7 @@ export interface Invoice {
     currency_type: 'crypto' | 'fiat';
     asset?: CryptoCurrencyCode;
     fiat?: FiatCurrencyCode;
-    amount: string;
+    amount: string | number;
     paid_asset?: CryptoCurrencyCode;
     paid_amount?: string;
     paid_fiat_rate?: string;
@@ -103,7 +105,7 @@ export interface Transfer {
     spend_id: string;
     user_id: number;
     asset: CryptoCurrencyCode;
-    amount: string;
+    amount: string | number;
     status: 'completed';
     completed_at: string;
     comment?: string;
@@ -113,7 +115,7 @@ export interface Check {
     check_id: number;
     hash: string;
     asset: CryptoCurrencyCode;
-    amount: string;
+    amount: string | number;
     bot_check_url: string;
     status: 'active' | 'activated';
     created_at: string;
@@ -160,7 +162,7 @@ export interface CreateInvoiceParams {
     asset?: CryptoCurrencyCode;
     fiat?: FiatCurrencyCode;
     accepted_assets?: string;
-    amount: string;
+    amount: string | number;
     description?: string;
     hidden_message?: string;
     paid_btn_name?: 'viewItem' | 'openChannel' | 'openBot' | 'callback';
@@ -173,7 +175,7 @@ export interface CreateInvoiceParams {
 
 export interface CreateCheckParams {
     asset: CryptoCurrencyCode;
-    amount: string;
+    amount: string | number;
     pin_to_user_id?: number;
     pin_to_username?: string;
 }
@@ -181,7 +183,7 @@ export interface CreateCheckParams {
 export interface TransferParams {
     user_id: number;
     asset: CryptoCurrencyCode;
-    amount: string;
+    amount: string | number;
     spend_id: string;
     comment?: string;
     disable_send_notification?: boolean;

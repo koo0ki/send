@@ -1,6 +1,6 @@
 {
     "name": "@koo0ki/send",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Send SDK for handling crypto payments and polling.",
     "main": "dist/index.js",
     "module": "dist/index.mjs",

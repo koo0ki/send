@@ -1,10 +1,10 @@
 import { Bot, InlineKeyboard, Keyboard } from 'grammy';
-import { CryptoPayClient } from '../src';
+import { CryptoPayClient, Networks } from '../src';
 
 const bot = new Bot(Bun.env.BOT_TOKEN!);
 const cryptoPay = new CryptoPayClient({
     token: Bun.env.CRYPTO_PAY_TOKEN!,
-    net: 'testnet',
+    net: Networks.TESTNET,
     pollingEnabled: true,
     pollingInterval: 5000
 });
