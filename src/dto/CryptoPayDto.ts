@@ -93,6 +93,13 @@ export interface Invoice {
     expiration_date?: string;
     paid_at?: string;
     paid_anonymously?: boolean;
+    is_swapped: boolean;
+    swapped_uid?: string;
+    swapped_to?: string;
+    swapped_rate?: string;
+    swapped_output?: string;
+    swapped_usd_amount?: string;
+    swapped_usd_rate?: string;
     comment?: string;
     hidden_message?: string;
     payload?: string;
