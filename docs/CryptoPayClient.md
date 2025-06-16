@@ -29,6 +29,7 @@ interface CreateInvoiceParams {
     description?: string;               // Описание
     hidden_message?: string;            // Скрытое сообщение
     paid_btn_name?: "viewItem" | "openChannel" | "openBot" | "callback"; // Действие после оплаты
+    swap_to?: 'USDT' | 'TON' | 'TRX' | 'ETH' | 'SOL' | 'BTC' | 'LTC'; // Валюта для получения на баланс
     paid_btn_url?: string;              // URL для действия
     payload?: string;          // Дополнительные данные
     allow_comments?: boolean;           // Разрешить комментарии

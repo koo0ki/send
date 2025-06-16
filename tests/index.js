@@ -1,4 +1,4 @@
-import { CryptoPayClient, Webhook, Networks } from '../dist';
+import { CryptoPayClient, Networks } from '../dist';
 
 const token = '41570:...';
 
@@ -11,21 +11,13 @@ const cryptoPay = new CryptoPayClient({
     pollingInterval: 5000
 });
 
-// Webhook
-
-const webhook = new Webhook(token, 8080);
-webhook.start();
-
-webhook.on('update', update => {
-    console.log(update);
-});
-
 // Example method
 
 const invoice = await cryptoPay.createInvoice({
     amount: 1,
     asset: 'USDT',
-    description: 'Test invoice'
+    description: 'Test invoice',
+    swap_to: 'BTC'
 });
 
 console.log(invoice);

@@ -166,6 +166,7 @@ export interface CreateInvoiceParams {
     description?: string;
     hidden_message?: string;
     paid_btn_name?: 'viewItem' | 'openChannel' | 'openBot' | 'callback';
+    swap_to?: 'USDT' | 'TON' | 'TRX' | 'ETH' | 'SOL' | 'BTC' | 'LTC';
     paid_btn_url?: string;
     payload?: string;
     allow_comments?: boolean;
