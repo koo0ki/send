@@ -1,5 +1,5 @@
-import type { Invoices, PollingParams } from '../dto/PollingDto';
-import type { Invoice } from '../dto/CryptoPayDto';
+import type { Invoices, PollingParams } from '../dto/PollingDto.js';
+import type { Invoice } from '../dto/CryptoPayDto.js';
 import { EventEmitter } from 'events';
 
 export class Polling extends EventEmitter {

@@ -1,4 +1,4 @@
-import { Network } from '../enums/Networks';
+import { Network } from '../enums/Networks.js';
 
 export interface CryptoPayClientParams {
     token: string;

@@ -1,7 +1,7 @@
 import { createHash, createHmac } from 'crypto';
 import { EventEmitter } from 'events';
 import { IncomingHttpHeaders } from 'http';
-import { WebhookUpdate } from '../dto/WebhookDto';
+import { WebhookUpdate } from '../dto/WebhookDto.js';
 
 export default class Webhook extends EventEmitter {
     private token: string;

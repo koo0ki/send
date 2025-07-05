@@ -1,5 +1,5 @@
-import type { Invoice } from './CryptoPayDto';
-import type CryptoPayManager from '../lib/CryptoPay';
+import type { Invoice } from './CryptoPayDto.js';
+import type CryptoPayManager from '../lib/CryptoPay.js';
 
 export interface PollingParams {
     cp: CryptoPayManager;

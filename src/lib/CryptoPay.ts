@@ -18,10 +18,10 @@ import type {
     Invoices,
     Transfer,
     TransferParams
-} from '../dto/CryptoPayDto';
-import { Polling } from './Polling';
+} from '../dto/CryptoPayDto.js';
+import { Polling } from './Polling.js';
 import axios, { AxiosInstance } from 'axios';
-import Webhook from './Webhook';
+import Webhook from './Webhook.js';
 
 export default class CryptoPayClient {
     private mainURL: string;

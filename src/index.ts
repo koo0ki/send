@@ -1,5 +1,4 @@
-import CryptoPayClient from './lib/CryptoPay';
-import Webhook from './lib/Webhook';
-import { Networks } from './enums/Networks';
+import CryptoPayClient from './lib/CryptoPay.js';
+import { Networks } from './enums/Networks.js';
 
-export { Webhook, CryptoPayClient, Networks };
+export { CryptoPayClient, Networks };
